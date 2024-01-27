@@ -12,7 +12,6 @@ public class SearchPage {
     public void enterSearchText(String searchText) {
         searchInputLocator.sendKeys(searchText);
     }
-
     public ElementsCollection getSearchResultsCount() {
         return searchResultsLocator;
     }

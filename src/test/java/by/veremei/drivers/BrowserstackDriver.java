@@ -13,21 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class BrowserstackDriver implements WebDriverProvider {
-
-    private final BrowserstackConfig config;
-
-    public BrowserstackDriver() {
-        String platform = System.getProperty("platform", "android");
-        config = getConfig(platform);
-    }
-
-    private BrowserstackConfig getConfig(String platform) {
-        if ("ios".equalsIgnoreCase(platform)) {
-            return ConfigFactory.create(BrowserstackConfig.class);
-        } else {
-            return ConfigFactory.create(BrowserstackConfig.class);
-        }
-    }
+    private static final BrowserstackConfig config = ConfigFactory.create(BrowserstackConfig.class);
 
     @Nonnull
     @Override
@@ -45,7 +31,7 @@ public class BrowserstackDriver implements WebDriverProvider {
 
         try {
             return new RemoteWebDriver(
-                    new URL("https://hub.browserstack.com/wd/hub"), caps);
+                    new URL(config.baseUrl()), caps);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
